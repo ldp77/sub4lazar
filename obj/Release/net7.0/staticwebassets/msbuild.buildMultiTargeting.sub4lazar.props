@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/sub4lazar.props" />
+</Project>

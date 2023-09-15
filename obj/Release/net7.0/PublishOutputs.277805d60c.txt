@@ -1,0 +1,7 @@
+/Users/lucaspreston/sub4lazar/out/sub4lazar
+/Users/lucaspreston/sub4lazar/out/appsettings.Development.json
+/Users/lucaspreston/sub4lazar/out/appsettings.json
+/Users/lucaspreston/sub4lazar/out/sub4lazar.dll
+/Users/lucaspreston/sub4lazar/out/sub4lazar.deps.json
+/Users/lucaspreston/sub4lazar/out/sub4lazar.runtimeconfig.json
+/Users/lucaspreston/sub4lazar/out/sub4lazar.pdb
