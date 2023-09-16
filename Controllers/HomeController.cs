@@ -23,6 +23,19 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Subscribe(User user)
+    {
+        User newUser = new User(user.email);
+
+        // System.Console.WriteLine("User created:");
+        // System.Console.WriteLine(newUser.email);
+        // System.Console.WriteLine(newUser.verified);
+        // System.Console.WriteLine(newUser.subscribeCode);
+        // System.Console.WriteLine(newUser.unsubscribeCode);
+
+        return View("Index");
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
