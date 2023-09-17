@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "SMDsYo/M8CQ2pQPNGYFCLDySJAezRW17bXtRevVGFSMcsFEeYcdIsLN3dHd7s7FM8R42L1TLFNONT7KHiCaiaQ==",
+  "dgSpecHash": "xT/Jx69q0/Pjh1t2TINqPmyRLcQn7Z7QJhYegvceLYoyNARgdVswALir04k+IB8nyjDqjoABlaQ/pa3Gyh3dJA==",
   "success": true,
   "projectFilePath": "/Users/lucaspreston/sub4lazar/sub4lazar.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/lucaspreston/.nuget/packages/microsoft.data.sqlite/7.0.11/microsoft.data.sqlite.7.0.11.nupkg.sha512",
+    "/Users/lucaspreston/.nuget/packages/microsoft.data.sqlite.core/7.0.11/microsoft.data.sqlite.core.7.0.11.nupkg.sha512",
+    "/Users/lucaspreston/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.4/sqlitepclraw.bundle_e_sqlite3.2.1.4.nupkg.sha512",
+    "/Users/lucaspreston/.nuget/packages/sqlitepclraw.core/2.1.4/sqlitepclraw.core.2.1.4.nupkg.sha512",
+    "/Users/lucaspreston/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.4/sqlitepclraw.lib.e_sqlite3.2.1.4.nupkg.sha512",
+    "/Users/lucaspreston/.nuget/packages/sqlitepclraw.provider.e_sqlite3/2.1.4/sqlitepclraw.provider.e_sqlite3.2.1.4.nupkg.sha512",
+    "/Users/lucaspreston/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512"
+  ],
   "logs": []
 }

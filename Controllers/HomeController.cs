@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using sub4lazar.Models;
+using sub4lazar.Utilities;
 
 namespace sub4lazar.Controllers;
 
@@ -26,6 +27,13 @@ public class HomeController : Controller
     public IActionResult Subscribe(User user)
     {
         User newUser = new User(user.email);
+
+        bool isUserValid = RegisterUserUtility.validateUser(newUser);
+        System.Console.WriteLine("isUserValid=" + isUserValid.ToString());
+
+        if (isUserValid) {
+            RegisterUserUtility.uploadUserToDB(newUser);
+        }
 
         // System.Console.WriteLine("User created:");
         // System.Console.WriteLine(newUser.email);
