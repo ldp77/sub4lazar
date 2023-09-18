@@ -33,6 +33,7 @@ public class HomeController : Controller
 
         if (isUserValid) {
             RegisterUserUtility.uploadUserToDB(newUser);
+            RegisterUserUtility.sendVerificationEmail(newUser);
         }
 
         // System.Console.WriteLine("User created:");

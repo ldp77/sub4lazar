@@ -1,4 +1,5 @@
 using Microsoft.Data.Sqlite;
+using System.Net.Mail;
 
 namespace sub4lazar.Utilities
 {
@@ -20,7 +21,7 @@ namespace sub4lazar.Utilities
         {
             string dbConnectionString = "Data Source = /database/lazar.db";
             int verifiedInt = user.verified ? 1 : 0;
-            string insertQuery = $"INSERT INTO users VALUES ('{user.email}', {user.verified}, '{user.subscribeCode}', '{user.unsubscribeCode}')";
+            string insertQuery = $"INSERT INTO users VALUES ('{user.email}', {verifiedInt}, '{user.subscribeCode}', '{user.unsubscribeCode}')";
             using (var connection = new SqliteConnection(dbConnectionString))
             {
                 connection.Open();
@@ -32,6 +33,33 @@ namespace sub4lazar.Utilities
                     command.ExecuteNonQuery();
                 }
             }
+        }
+
+        public static void sendVerificationEmail(sub4lazar.Models.User user)
+        {
+            // Retrieve from env
+            string smtpKey = System.Environment.GetEnvironmentVariable("SMTP_KEY");
+            string fromEmail = System.Environment.GetEnvironmentVariable("SMTP_EMAIL");
+            string validationLink = "thedomain.com/Validate";
+            var smtpClient = new SmtpClient("smtp-relay.brevo.com")
+            {
+                Port = 587,
+                Credentials = new System.Net.NetworkCredential(fromEmail, smtpKey),
+                EnableSsl = true,
+            };
+
+            string emailSubject = "Verify Your Email";
+            
+            string emailBody = $@"Thank you for subscribing to Lazar Notifications.
+            
+Please verify your email at {validationLink}
+            
+Your verification code is {user.subscribeCode}";
+
+            System.Console.WriteLine("EmailBody:");
+            System.Console.WriteLine(emailBody);
+
+            smtpClient.Send(fromEmail, user.email, emailSubject, emailBody);
         }
     }
 }
