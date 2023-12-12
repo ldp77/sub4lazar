@@ -1,0 +1,23 @@
+@model sub4lazar.Models.User
+
+@{
+    ViewData["Title"] = "Verify Your Email";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Verify Your Email</h1>
+    <p>We sent a verification code to your email address.</p>
+</div>
+
+@using (Html.BeginForm("Verify", "Home", FormMethod.Post))
+{
+    <div>
+        @Html.Label("Email")
+        @Html.TextBoxFor(m => m.email)
+    </div>
+    <div>
+        @Html.Label("Verification Code")
+        @Html.TextBoxFor(m => m.subscribeCode)
+    </div>
+    <input type="submit" value="Submit" />
+}

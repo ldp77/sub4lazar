@@ -5,6 +5,10 @@ namespace sub4lazar.Utilities
 {
     public static class RegisterUserUtility
     {
+        public static string dbConnectionString()
+        {
+            return "Data Source = /database/lazar.db";
+        }
         public static bool validateUser(sub4lazar.Models.User user)
         {
             bool isUserValid = true;
@@ -19,10 +23,9 @@ namespace sub4lazar.Utilities
 
         public static void uploadUserToDB(sub4lazar.Models.User user)
         {
-            string dbConnectionString = "Data Source = /database/lazar.db";
             int verifiedInt = user.verified ? 1 : 0;
             string insertQuery = $"INSERT INTO users VALUES ('{user.email}', {verifiedInt}, '{user.subscribeCode}', '{user.unsubscribeCode}')";
-            using (var connection = new SqliteConnection(dbConnectionString))
+            using (var connection = new SqliteConnection(dbConnectionString()))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
@@ -60,6 +63,44 @@ Your verification code is {user.subscribeCode}";
             System.Console.WriteLine(emailBody);
 
             smtpClient.Send(fromEmail, user.email, emailSubject, emailBody);
+        }
+
+        public static bool verifyUserIfValid(string email, string subscribeCode)
+        {
+            // Query the DB for information matching user input
+            string selectQuery = $"SELECT * FROM users WHERE (email='{email}' AND subscribeCode='{subscribeCode}');";
+            using (var connection = new SqliteConnection(dbConnectionString()))
+            {
+                connection.Open();
+                using (var selectCommand = new SqliteCommand(selectQuery, connection))
+                {
+                    using (var reader = selectCommand.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string updateQuery = $"UPDATE users SET verified=1 WHERE email='{email}';";
+                            using (var updateCommand = new SqliteCommand(updateQuery, connection))
+                            {
+                                int rowsAffected = updateCommand.ExecuteNonQuery();
+                                if (rowsAffected > 0)
+                                {
+                                    Console.WriteLine("Email verified successfully");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("A problem occurred during verification");
+                                }
+                            }
+                            return true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("No Record Found");
+                            return false;
+                        }
+                    }
+                }
+            }
         }
     }
 }

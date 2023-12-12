@@ -42,7 +42,22 @@ public class HomeController : Controller
         // System.Console.WriteLine(newUser.subscribeCode);
         // System.Console.WriteLine(newUser.unsubscribeCode);
 
-        return View("Index");
+        return View("Verify");
+    }
+
+    public IActionResult Verify(User user)
+    {
+        bool verificationResult = RegisterUserUtility.verifyUserIfValid(user.email, user.subscribeCode);
+        string message = "";
+        if (verificationResult)
+        {
+            message = "Verification was successful, you will now recieve notifications.";
+        }
+        else
+        {
+            message = "Something went wrong during verification";
+        }
+        return View("VerifyResult", message);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
