@@ -42,22 +42,33 @@ public class HomeController : Controller
         // System.Console.WriteLine(newUser.subscribeCode);
         // System.Console.WriteLine(newUser.unsubscribeCode);
 
-        return View("Verify");
+        return RedirectToAction("Verify");
     }
 
     public IActionResult Verify(User user)
+    {
+        return View("Verify");
+    }
+
+    public IActionResult ProcessVerify(User user)
     {
         bool verificationResult = RegisterUserUtility.verifyUserIfValid(user.email, user.subscribeCode);
         string message = "";
         if (verificationResult)
         {
-            message = "Verification was successful, you will now recieve notifications.";
+            TempData["VerifyMessage"] = "Verification was successful, you will now recieve notifications.";
         }
         else
         {
-            message = "Something went wrong during verification";
+            TempData["VerifyMessage"] = "Something went wrong during verification";
         }
-        return View("VerifyResult", message);
+        return RedirectToAction("VerifyResult");
+    }
+
+    public IActionResult VerifyResult()
+    {
+        ViewData["VerifyMessage"] = TempData["VerifyMessage"];
+        return View("VerifyResult");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
